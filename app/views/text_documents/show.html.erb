@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @text_document.filename %>
+</p>
+
+<p>
+  <strong>Content type:</strong>
+  <%= @text_document.content_type %>
+</p>
+
+<p>
+  <strong>File contents:</strong>
+  <%= @text_document.file_contents %>
+</p>
+
+<%= link_to 'Edit', edit_text_document_path(@text_document) %> |
+<%= link_to 'Back', text_documents_path %>

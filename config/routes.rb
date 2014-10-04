@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :text_documents
+
   get 'home/index'
 
   root 'home#index'
