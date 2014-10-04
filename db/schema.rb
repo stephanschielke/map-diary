@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004173450) do
+ActiveRecord::Schema.define(version: 20141004223417) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "gps_coords", force: true do |t|
+    t.datetime "when"
+    t.decimal  "longitude"
+    t.decimal  "latitude"
+    t.decimal  "altitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "text_documents", force: true do |t|
     t.string   "filename"

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :gps_coords
+
   resources :text_documents
 
   get 'home/index'

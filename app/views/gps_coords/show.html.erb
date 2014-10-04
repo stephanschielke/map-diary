@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>When:</strong>
+  <%= @gps_coord.when %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @gps_coord.longitude %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @gps_coord.latitude %>
+</p>
+
+<p>
+  <strong>Altitude:</strong>
+  <%= @gps_coord.altitude %>
+</p>
+
+<%= link_to 'Edit', edit_gps_coord_path(@gps_coord) %> |
+<%= link_to 'Back', gps_coords_path %>

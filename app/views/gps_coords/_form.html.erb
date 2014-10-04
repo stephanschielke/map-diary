@@ -1,0 +1,33 @@
+<%= form_for(@gps_coord) do |f| %>
+  <% if @gps_coord.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gps_coord.errors.count, "error") %> prohibited this gps_coord from being saved:</h2>
+
+      <ul>
+      <% @gps_coord.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :when %><br>
+    <%= f.datetime_select :when %>
+  </div>
+  <div class="field">
+    <%= f.label :longitude %><br>
+    <%= f.text_field :longitude %>
+  </div>
+  <div class="field">
+    <%= f.label :latitude %><br>
+    <%= f.text_field :latitude %>
+  </div>
+  <div class="field">
+    <%= f.label :altitude %><br>
+    <%= f.text_field :altitude %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
