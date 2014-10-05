@@ -1,0 +1,17 @@
+<%= form_for(@google_kml) do |f| %>
+  <% if @google_kml.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@google_kml.errors.count, "error") %> prohibited this google_kml from being saved:</h2>
+
+      <ul>
+      <% @google_kml.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

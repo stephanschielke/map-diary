@@ -1,0 +1,10 @@
+<h1>GPS Import</h1>
+
+
+<% @coord_data.each_with_index do |coord_data, index| %>
+   <%= coord_data.name %>: <%= coord_data.content %> <br />
+<% end %>
+
+<p>
+  <%= @xml_file %>
+</p>
