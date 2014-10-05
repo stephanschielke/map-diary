@@ -24,7 +24,7 @@ class GoogleKmlsController < ApplicationController
           @gps_coord.when = Time.zone.parse(node.content)    
         elsif node.name == "coord"
           # Example: "6.1003164 50.7774925 0"
-          @decimals = node.content.split(" ").map {&:to_f}
+          @decimals = node.content.split(" ").map { |s| s.to_f }
 
           @gps_coord.longitude = @decimals[0] 
           @gps_coord.latitude = @decimals[1]
