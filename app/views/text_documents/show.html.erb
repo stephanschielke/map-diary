@@ -15,5 +15,7 @@
   <%= @text_document.file_contents %>
 </p>
 
+<%#= link_to "Import GPS", :controller => "google_kml", :action => "parseKmlFile", :file => @text_document.id %>
+<%= link_to "GPS Import", parseKmlFile_google_kml_path(@text_document), :method=>:post %>
 <%= link_to 'Edit', edit_text_document_path(@text_document) %> |
 <%= link_to 'Back', text_documents_path %>

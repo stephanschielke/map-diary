@@ -4,6 +4,12 @@ Rails.application.routes.draw do
 
   resources :text_documents
 
+  resources :google_kmls do
+    member do
+      post 'parseKmlFile'
+    end 
+  end
+
   get 'home/index'
 
   root 'home#index'

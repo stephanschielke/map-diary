@@ -9,7 +9,10 @@ class TextDocumentsController < ApplicationController
 
   # GET /text_documents/1
   # GET /text_documents/1.json
-  def show  
+  def show 
+  end
+
+  def download
     send_data(@text_document.file_contents,
               type: @text_document.content_type,
               filename: @text_document.filename)
