@@ -21,8 +21,10 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 
-
+# XML-Parser
 gem 'nokogiri'
+# Rails vars in JS/Coffee
+gem 'gon' 
 
 group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
