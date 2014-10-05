@@ -10,11 +10,27 @@ $(document).ready ->
       attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
   });
 
-  map = L.map('map').addLayer(mapboxTiles).setView([gon.lat, gon.lon], 15);
-  
-  marker = L.marker([gon.lat, gon.lon]).addTo(map);
+  map = L.map('map').addLayer(mapboxTiles)
 
-  popup_html = 'Am: <b>' + gon.when + '</b>' + '<br />' +
-               'Koordinaten: ' + gon.lat + ',' + gon.lon  
+  # index action?
+  if gon.index? 
+    first_coord = gon.gps_coords[0]
+    map.setView([first_coord.latitude, first_coord.longitude], 15);
 
-  marker.bindPopup(popup_html).openPopup();
+    for coord in gon.gps_coords
+      add_marker(map, coord.when, coord.latitude, coord.longitude)
+ 
+  # show action?
+  if gon.show?
+    map.setView([gon.lat, gon.lon], 15);
+
+    add_marker(map, gon.when, gon.lat, gon.lon).openPopup();
+
+
+add_marker = (map, time, lat, lon) ->
+  marker = L.marker([lat, lon]).addTo(map);
+
+  popup_html = 'Am: <b>' + time + '</b>' + '<br />' +
+               'Koordinaten: ' + lat + ',' + lon  
+
+  marker.bindPopup(popup_html);

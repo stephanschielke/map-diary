@@ -4,16 +4,26 @@ class GpsCoordsController < ApplicationController
   # GET /gps_coords
   # GET /gps_coords.json
   def index
-    @gps_coords = GpsCoord.all
+    # For performance, just grab the first 100
+    @gps_coords = GpsCoord.limit(100)
+
+    gon.gps_coords = @gps_coords
+
+    # Flag for the CoffeeScript to decide which part to run
+    gon.index = true;
   end
 
   # GET /gps_coords/1
   # GET /gps_coords/1.json
   def show
     @gps_coord = GpsCoord.find(params[:id])
+    
     gon.lat = @gps_coord.latitude
     gon.lon = @gps_coord.longitude
     gon.when = @gps_coord.when.localtime.to_s(:long)
+
+    # Flag for the CoffeeScript to decide which part to run
+    gon.show = true;
   end
 
   # GET /gps_coords/new
