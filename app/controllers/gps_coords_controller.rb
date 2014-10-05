@@ -10,6 +10,10 @@ class GpsCoordsController < ApplicationController
   # GET /gps_coords/1
   # GET /gps_coords/1.json
   def show
+    @gps_coord = GpsCoord.find(params[:id])
+    gon.lat = @gps_coord.latitude
+    gon.lon = @gps_coord.longitude
+    gon.when = @gps_coord.when.localtime.to_s(:long)
   end
 
   # GET /gps_coords/new
