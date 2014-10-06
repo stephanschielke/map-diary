@@ -4,11 +4,20 @@ class GpsCoordsController < ApplicationController
   # GET /gps_coords
   # GET /gps_coords.json
   def index
-    # For performance, just grab the first 50
-    @gps_coords = GpsCoord.limit(50)
+    # For performance, just grab the first 1000
+    @gps_coords = GpsCoord.Limit(1000)
 
     # Array of [Lon,Lat]-Arrays (for json)
     @coord_arrays = @gps_coords.map {|c| [c.longitude.to_f, c.latitude.to_f] }
+
+    # Can't figure out how to get the jbuilder json string for this action or @gps_coords...
+    # I'm just leaving it here to solve it later on... 
+    #gon.json = render_to_string( template: 'gps_coords/index.json.jbuilder', locals: { gps_coords: @gps_coords})
+    #@json = render_to_string(:action => "index.json.jbuilder", :layout => false)
+    #@json = @gps_coords.to_json
+    #render("gps_coords/index.json.jbuilder") 
+    #gon.json = @json
+    gon.url = request.url
 
     gon.gps_coords = @gps_coords
 

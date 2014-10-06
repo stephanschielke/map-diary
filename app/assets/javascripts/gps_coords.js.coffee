@@ -17,8 +17,10 @@ $(document).ready ->
     first_coord = gon.gps_coords[0]
     map.setView([first_coord.latitude, first_coord.longitude], 15);
 
-    for coord in gon.gps_coords
-      add_marker(map, coord.when, coord.latitude, coord.longitude)
+    # Could'nt figure out how to pass the json as rendered string
+    # so make another call (inception) while HTML is rendering
+    get_json(gon.url).done (json) ->
+      L.geoJson(json).addTo(map);
  
   # show action?
   if gon.show?
@@ -34,3 +36,6 @@ add_marker = (map, time, lat, lon) ->
                'Koordinaten: ' + lat + ',' + lon  
 
   marker.bindPopup(popup_html);
+
+get_json = (url) ->
+    $.getJSON "#{url}.json"
