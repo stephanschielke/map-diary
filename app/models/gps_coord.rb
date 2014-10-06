@@ -13,4 +13,8 @@ class GpsCoord < ActiveRecord::Base
     read_attribute(:when)
   end
 
+  def to_coord_array 
+    return Array[read_attribute(:longitude).to_f, read_attribute(:latitude).to_f]
+  end
+
 end

@@ -1,1 +1,2 @@
-json.extract! @gps_coord, :id, :when, :longitude, :latitude, :altitude, :created_at, :updated_at
+json.type "Point"
+json.coordinates @gps_coord.to_coord_array

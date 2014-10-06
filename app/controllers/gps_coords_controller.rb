@@ -7,6 +7,9 @@ class GpsCoordsController < ApplicationController
     # For performance, just grab the first 50
     @gps_coords = GpsCoord.limit(50)
 
+    # Array of [Lon,Lat]-Arrays (for json)
+    @coord_arrays = @gps_coords.map {|c| [c.longitude.to_f, c.latitude.to_f] }
+
     gon.gps_coords = @gps_coords
 
     # Flag for the CoffeeScript to decide which part to run
