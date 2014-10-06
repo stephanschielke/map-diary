@@ -25,6 +25,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'nokogiri'
 # Rails vars in JS/Coffee
 gem 'gon' 
+# Used to find the timezone by lon,lat coord 
+# alternative without webservice: https://github.com/buytruckload/nearest_time_zone
+gem 'timezone'
 
 group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
