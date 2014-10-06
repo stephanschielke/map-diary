@@ -32,6 +32,9 @@ gem 'timezone'
 group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # debugger for ruby-debugger package in sublime
+  gem 'byebug'
 end
 
 group :production do
