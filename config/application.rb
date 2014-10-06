@@ -2,6 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+I18n.default_locale = :de
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -20,4 +22,10 @@ module MapDiary
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
   end
+end
+
+#http://rubydoc.info/gems/timezone/0.3.2/frames
+# used by the 'timezone' gem
+Timezone::Configure.begin do |c|
+  c.username = 'stephschie'
 end
