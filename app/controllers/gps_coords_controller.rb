@@ -5,7 +5,7 @@ class GpsCoordsController < ApplicationController
   # GET /gps_coords.json
   def index
     # For performance, just grab the first 1000
-    @gps_coords = GpsCoord.Limit(1000)
+    @gps_coords = GpsCoord.limit(1000)
 
     # Array of [Lon,Lat]-Arrays (for json)
     @coord_arrays = @gps_coords.map {|c| [c.longitude.to_f, c.latitude.to_f] }
