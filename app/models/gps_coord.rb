@@ -4,8 +4,8 @@ class GpsCoord < ActiveRecord::Base
   # converted to the gps coordination local time zone
   def when
     # Find the timezone of the gps_coord and convert to gps local time
-    timezone = Timezone::Zone.new :latlon => [read_attribute(:latitude), read_attribute(:longitude)]
-    return I18n.l (timezone.time read_attribute(:when)), format: :day_date_time
+    timezone = NearestTimeZone.to(read_attribute(:latitude), read_attribute(:longitude))
+    return I18n.l (read_attribute(:when).in_time_zone(timezone)), format: :day_date_time
   end
 
   # Returns the original when stored in db with utc information 

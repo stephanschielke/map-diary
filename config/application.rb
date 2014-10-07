@@ -23,9 +23,3 @@ module MapDiary
     # config.i18n.default_locale = :de
   end
 end
-
-#http://rubydoc.info/gems/timezone/0.3.2/frames
-# used by the 'timezone' gem
-Timezone::Configure.begin do |c|
-  c.username = 'stephschie'
-end
