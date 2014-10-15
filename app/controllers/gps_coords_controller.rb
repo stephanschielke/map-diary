@@ -9,7 +9,7 @@ class GpsCoordsController < ApplicationController
 
     gon.json_all = geojson_of_all_days
 
-    gon.first_coord = GpsCoord.limit(1)
+    gon.first_coord = GpsCoord.first
 
     # Flag for the CoffeeScript to decide which part to run
     gon.index = true;
@@ -26,6 +26,11 @@ class GpsCoordsController < ApplicationController
     
     # Flag for the CoffeeScript to decide which part to run
     gon.show = true;
+  end
+
+  def geojson_of_day(date)
+    day_range = (date - 1.day)..date 
+    return geojson_of(GpsCoord.where('when' => day_range))
   end
 
   def geojson_of_all_days
