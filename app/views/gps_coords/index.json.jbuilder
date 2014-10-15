@@ -1,5 +1,2 @@
 json.type "LineString"
-json.coordinates @coord_arrays
-
-
-
+json.coordinates @coord_array

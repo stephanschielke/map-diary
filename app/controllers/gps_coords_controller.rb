@@ -4,22 +4,12 @@ class GpsCoordsController < ApplicationController
   # GET /gps_coords
   # GET /gps_coords.json
   def index
-    # For performance, just grab the first 1000
-    @gps_coords = GpsCoord.all
-
     # Array of [Lon,Lat]-Arrays (for json)
-    @coord_arrays = @gps_coords.map {|c| [c.longitude.to_f, c.latitude.to_f] }
+    @coord_array = GpsCoord.all.map {|c| [c.longitude.to_f, c.latitude.to_f] }
 
-    # Can't figure out how to get the jbuilder json string for this action or @gps_coords...
-    # I'm just leaving it here to solve it later on... 
-    #gon.json = render_to_string( template: 'gps_coords/index.json.jbuilder', locals: { gps_coords: @gps_coords})
-    #@json = render_to_string(:action => "index.json.jbuilder", :layout => false)
-    #@json = @gps_coords.to_json
-    #render("gps_coords/index.json.jbuilder") 
-    #gon.json = @json
-    gon.url = request.url
+    gon.json_all = geojson_of_all_days
 
-    gon.gps_coords = @gps_coords
+    gon.first_coord = GpsCoord.limit(1)
 
     # Flag for the CoffeeScript to decide which part to run
     gon.index = true;
@@ -28,14 +18,25 @@ class GpsCoordsController < ApplicationController
   # GET /gps_coords/1
   # GET /gps_coords/1.json
   def show
-    @gps_coord = GpsCoord.find(params[:id])
+    gps_coord = GpsCoord.find(params[:id])
     
-    gon.lat = @gps_coord.latitude
-    gon.lon = @gps_coord.longitude
-    gon.when = @gps_coord.when
+    gon.lat = gps_coord.latitude
+    gon.lon = gps_coord.longitude
+    gon.when = gps_coord.when
     
     # Flag for the CoffeeScript to decide which part to run
     gon.show = true;
+  end
+
+  def geojson_of_all_days
+    return geojson_of(GpsCoord.all)
+  end
+
+  def geojson_of(gps_coords)
+    Jbuilder.encode do |json| 
+      json.type "LineString"
+      json.coordinates gps_coords.map {|c| [c.longitude.to_f, c.latitude.to_f] }
+    end
   end
 
   # GET /gps_coords/new

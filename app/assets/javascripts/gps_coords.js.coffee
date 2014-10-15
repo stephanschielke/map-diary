@@ -14,14 +14,10 @@ $(document).ready ->
 
   # index action?
   if gon.index? 
-    first_coord = gon.gps_coords[0]
-    map.setView([first_coord.latitude, first_coord.longitude], 15);
+    map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
 
-    # Could'nt figure out how to pass the json as rendered string
-    # so make another call (inception) while HTML is rendering
-    get_json(gon.url).done (json) ->
-      L.geoJson(json).addTo(map);
- 
+    L.geoJson(JSON.parse(gon.json_all)).addTo(map);
+
   # show action?
   if gon.show?
     map.setView([gon.lat, gon.lon], 15);
