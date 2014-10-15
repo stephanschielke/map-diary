@@ -15,7 +15,7 @@
       <tr>
         <td><%= text_document.filename %></td>
         <td><%= text_document.content_type %></td>
-        <td><%= text_document.file_contents %></td>
+        <td><%= text_document.file_contents.first(1000) %></td>
         <td><%= link_to 'Show', text_document %></td>
         <td><%= link_to 'Edit', edit_text_document_path(text_document) %></td>
         <td><%= link_to 'Destroy', text_document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
