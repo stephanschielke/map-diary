@@ -28,6 +28,12 @@ $(document).ready ->
     map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
     L.geoJson(JSON.parse(gon.json_today)).addTo(map);
 
+    $('.datepicker').datepicker({
+        format: "dd.mm.yyyy",
+        weekStart: 1,
+        language: "de",
+        todayHighlight: true
+    });
 
 add_marker = (map, time, lat, lon) ->
   marker = L.marker([lat, lon]).addTo(map);
