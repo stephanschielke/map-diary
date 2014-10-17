@@ -3,10 +3,14 @@
   <%= javascript_include_tag 'https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js' %>
 <% end -%>
 
-<h1>Übersicht aller aufgezeichneten GPS-Koordinaten</h1>
+<div class="page-header">
+  <h1>Übersicht aller gespeicherten GPS-Koordinaten <small>(<%= @coord_array.length %>)</small></h1>
+</div>
 
-<div id="map" style="height: 80vh"></div>
-
-<br>
-
-<%= link_to 'Neue GPS-Koordinate eintragen', new_gps_coord_path %>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-6">
+    <div id="map" style="height: 70vh"></div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
