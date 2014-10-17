@@ -24,6 +24,10 @@ $(document).ready ->
 
     add_marker(map, gon.when, gon.lat, gon.lon).openPopup();
 
+  if gon.day_overview?
+    map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
+    L.geoJson(JSON.parse(gon.json_today)).addTo(map);
+
 
 add_marker = (map, time, lat, lon) ->
   marker = L.marker([lat, lon]).addTo(map);

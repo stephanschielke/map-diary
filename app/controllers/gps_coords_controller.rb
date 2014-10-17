@@ -28,6 +28,16 @@ class GpsCoordsController < ApplicationController
     gon.show = true;
   end
 
+  def day_overview
+    # Array of [Lon,Lat]-Arrays (for json)
+    gon.json_today = geojson_of_day(Time.now)
+    
+    gon.first_coord = GpsCoord.first
+    
+    # Flag for the CoffeeScript to decide which part to run
+    gon.day_overview = true;  
+  end
+
   def geojson_of_day(date)
     day_range = (date - 1.day)..date 
     return geojson_of(GpsCoord.where('when' => day_range))

@@ -1,0 +1,20 @@
+<% content_for :header do -%>
+  <%= stylesheet_link_tag 'https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' %>
+  <%= javascript_include_tag 'https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js' %>
+<% end -%>
+
+<div class="page-header">
+  <h1>Tagesansicht</h1>
+</div>
+
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-3">
+    #Kalender
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-6">
+    <div id="map" style="height: 70vh"></div>
+  </div>
+  <div class="col-md-1"></div>
+</div>

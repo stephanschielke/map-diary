@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+
+  get 'home/index'
+
+  root 'home#index'
+
+  get '/gps_coords/day_overview'
+
   resources :gps_coords
 
   resources :text_documents
@@ -10,9 +17,10 @@ Rails.application.routes.draw do
     end 
   end
 
-  get 'home/index'
 
-  root 'home#index'
+
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
