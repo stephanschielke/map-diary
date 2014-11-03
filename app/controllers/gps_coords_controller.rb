@@ -28,36 +28,23 @@ class GpsCoordsController < ApplicationController
     gon.show = true;
   end
 
-  def day_overview
-    # Array of [Lon,Lat]-Arrays (for json)
-    gon.json_today = geojson_of_day
-    
-    gon.first_coord = GpsCoord.first
-    
-    # Flag for the CoffeeScript to decide which part to run
-    gon.day_overview = true;  
-  end
+  def overview
 
-#  def geojson_of_day(date)
-#    day_range = (date - 1.day)..date 
-#    return geojson_of(GpsCoord.where('when' => day_range))
-#  end
-
-  def geojson_of_day
     if params.include?(:day) then 
-      date = Time.parse(params[:day])
+      date = Time.new(params[:year],params[:month],params[:day])
     else
       date = Time.now
     end 
 
-    day_range = (date - 1.day)..date 
+    @gps_coords = GpsCoord.where('when' => (date)..date+1.day)
+
+    gon.json_today = geojson_of(@gps_coords)
     
-    #gon.geojson_of_day = geojson_of(GpsCoord.where('when' => day_range))
-
-    render :json "geojson", :gps_coords => @gps_coords
-    #return geojson_of(GpsCoord.where('when' => day_range))
-
-  end
+    gon.first_coord = @gps_coords.first
+    
+    # Flag for the CoffeeScript to decide which part to run
+    gon.overview = true;  
+  end  
 
   def geojson_of_all_days
     return geojson_of(GpsCoord.all)

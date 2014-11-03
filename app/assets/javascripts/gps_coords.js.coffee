@@ -24,7 +24,7 @@ $(document).ready ->
 
     add_marker(map, gon.when, gon.lat, gon.lon).openPopup();
 
-  if gon.day_overview?
+  if gon.overview?
     map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
     L.geoJson(JSON.parse(gon.json_today)).addTo(map);
 
@@ -35,7 +35,7 @@ $(document).ready ->
         todayHighlight: true
     });
 
-    $('#dp').on('changeDate', (e) -> dateChanged2(e.date) );
+    $('#dp').on('changeDate', (e) -> dateChanged(e.date.getUTCFullYear(), e.date.getUTCMonth() + 1, e.date.getUTCDate()));
 
 
 
@@ -53,18 +53,5 @@ get_json = (url) ->
   $.getJSON "#{url}.json"
 
 
-
-dateChanged = (ev) ->
-  $.ajax("/gps_coords/geojson_of_day", null, null, null).done (gejson) ->
-     alert ev
-     L.geoJson(JSON.parse(gejson)).addTo(map);
-
-
-dateChanged2 = (ev) ->
-  $.ajax({
-    type: 'GET',
-    url:'/gps_coords/geojson_of_day',
-    data:{ day: ev },
-    success: (data) ->
-      alert(data);
-  });
+dateChanged = (year, month, day) ->
+  window.location.href = '/overview/' + year + '/' + month + '/' + day
