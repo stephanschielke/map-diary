@@ -25,9 +25,6 @@ $(document).ready ->
     add_marker(map, gon.when, gon.lat, gon.lon).openPopup();
 
   if gon.overview?
-    map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
-    L.geoJson(JSON.parse(gon.json_today)).addTo(map);
-
     $('.datepicker').datepicker({
         format: "dd.mm.yyyy",
         weekStart: 1,
@@ -37,6 +34,13 @@ $(document).ready ->
 
     $('#dp').on('changeDate', (e) -> dateChanged(e.date.getUTCFullYear(), e.date.getUTCMonth() + 1, e.date.getUTCDate()));
 
+    if gon.first_coord?
+      map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
+    else
+      # Greenwich
+      map.setView([51.47879, 0], 15);
+
+    L.geoJson(JSON.parse(gon.json_today)).addTo(map);
 
 
 add_marker = (map, time, lat, lon) ->
