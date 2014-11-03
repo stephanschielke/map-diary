@@ -30,7 +30,7 @@ class GpsCoordsController < ApplicationController
 
   def day_overview
     # Array of [Lon,Lat]-Arrays (for json)
-    gon.json_today = geojson_of_day(Time.now)
+    gon.json_today = geojson_of_day
     
     gon.first_coord = GpsCoord.first
     
@@ -38,9 +38,25 @@ class GpsCoordsController < ApplicationController
     gon.day_overview = true;  
   end
 
-  def geojson_of_day(date)
+#  def geojson_of_day(date)
+#    day_range = (date - 1.day)..date 
+#    return geojson_of(GpsCoord.where('when' => day_range))
+#  end
+
+  def geojson_of_day
+    if params.include?(:day) then 
+      date = Time.parse(params[:day])
+    else
+      date = Time.now
+    end 
+
     day_range = (date - 1.day)..date 
-    return geojson_of(GpsCoord.where('when' => day_range))
+    
+    #gon.geojson_of_day = geojson_of(GpsCoord.where('when' => day_range))
+
+    render :json "geojson", :gps_coords => @gps_coords
+    #return geojson_of(GpsCoord.where('when' => day_range))
+
   end
 
   def geojson_of_all_days
@@ -52,6 +68,10 @@ class GpsCoordsController < ApplicationController
       json.type "LineString"
       json.coordinates gps_coords.map {|c| [c.longitude.to_f, c.latitude.to_f] }
     end
+  end
+
+  def geojson(gps_coords)
+    @gps_coords = gps_coords.map {|c| [c.longitude.to_f, c.latitude.to_f] }
   end
 
   # GET /gps_coords/new
@@ -106,7 +126,7 @@ class GpsCoordsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_gps_coord
-      @gps_coord = GpsCoord.find(params[:id])
+      #@gps_coord = GpsCoord.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -35,6 +35,10 @@ $(document).ready ->
         todayHighlight: true
     });
 
+    $('#dp').on('changeDate', (e) -> dateChanged2(e.date) );
+
+
+
 add_marker = (map, time, lat, lon) ->
   marker = L.marker([lat, lon]).addTo(map);
 
@@ -43,5 +47,24 @@ add_marker = (map, time, lat, lon) ->
 
   marker.bindPopup(popup_html);
 
+
+
 get_json = (url) ->
-    $.getJSON "#{url}.json"
+  $.getJSON "#{url}.json"
+
+
+
+dateChanged = (ev) ->
+  $.ajax("/gps_coords/geojson_of_day", null, null, null).done (gejson) ->
+     alert ev
+     L.geoJson(JSON.parse(gejson)).addTo(map);
+
+
+dateChanged2 = (ev) ->
+  $.ajax({
+    type: 'GET',
+    url:'/gps_coords/geojson_of_day',
+    data:{ day: ev },
+    success: (data) ->
+      alert(data);
+  });

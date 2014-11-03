@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
 
 
+ 
+
   get 'home/index'
 
   root 'home#index'
 
-  get '/gps_coords/day_overview'
-
-  resources :gps_coords
+  resources :gps_coords do
+    collection do
+      get :geojson_of_day
+      get :day_overview
+    end
+  end
 
   resources :text_documents
 
