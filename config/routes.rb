@@ -5,9 +5,16 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  get '/gps_coords/day_overview'
+  resources :gps_coords do
+    collection do
+      get :overview
+    end
+  end
 
-  resources :gps_coords
+  # TODO mit der Syntax von oben verheiraten
+  get '/overview/:year/:month/:day' => "gps_coords#overview", # :as => "blog_post",
+        :requirements => { :year => /\d{4}/, :month => /\d{2}/}
+
 
   resources :text_documents
 

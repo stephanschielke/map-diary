@@ -24,8 +24,35 @@ $(document).ready ->
 
     add_marker(map, gon.when, gon.lat, gon.lon).openPopup();
 
-  if gon.day_overview?
-    map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
+  if gon.overview?
+    $('.datepicker').datepicker({
+        format: "dd.mm.yyyy"
+        weekStart: 1
+        language: "de"
+        todayHighlight: false
+        multidate: false # fürs Erste
+        todayBtn: (dateFormat(new Date()) in gon.availabe_days)
+        startDate: new Date(gon.startDate)
+        endDate: new Date(gon.endDate)
+
+        beforeShowDay: (date) -> 
+          # Must be "YYYY-MM-DD" for comparison with array values
+          if (dateFormat(date) == gon.selectedDate)
+            "selectedDate"
+          else if (dateFormat(date) in gon.availabe_days)
+            "dataAvailabe" 
+          else 
+            false
+    });
+
+    $('#dp').on('changeDate', (e) -> dateChanged(e.date));
+
+    if gon.first_coord?
+      map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
+    else
+      # Greenwich
+      map.setView([51.47879, 0], 15);
+
     L.geoJson(JSON.parse(gon.json_today)).addTo(map);
 
 
@@ -37,5 +64,18 @@ add_marker = (map, time, lat, lon) ->
 
   marker.bindPopup(popup_html);
 
+
+
 get_json = (url) ->
-    $.getJSON "#{url}.json"
+  $.getJSON "#{url}.json"
+
+
+dateChanged = (date) ->
+  year = date.getUTCFullYear()
+  month = date.getUTCMonth() + 1 #0-11 to 1-12
+  day = date.getUTCDate()
+  window.location.href = '/overview/' + year + '/' + month + '/' + day
+
+
+dateFormat = (date) ->
+  date.getUTCFullYear() + '-' + ('0' + (date.getUTCMonth() + 1)).slice(-2) + '-' + ('0' + date.getUTCDate()).slice(-2)
