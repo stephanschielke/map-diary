@@ -33,6 +33,7 @@ class GpsCoordsController < ApplicationController
     if params.include?(:day) then 
       date = Time.new(params[:year],params[:month],params[:day])
     else
+      #TODO get start if current day
       date = Time.now
     end 
 
@@ -41,6 +42,11 @@ class GpsCoordsController < ApplicationController
     gon.json_today = geojson_of(@gps_coords)
     
     gon.first_coord = @gps_coords.first
+
+    gon.availabe_days = GpsCoord.uniq.order(:when).pluck(:when).collect {|w| w.to_date}.uniq
+    gon.startDate = gon.availabe_days.first
+    gon.endDate = gon.availabe_days.last
+    gon.selectedDate = date.to_date
     
     # Flag for the CoffeeScript to decide which part to run
     gon.overview = true;  

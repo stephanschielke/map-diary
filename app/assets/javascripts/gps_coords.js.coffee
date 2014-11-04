@@ -26,10 +26,23 @@ $(document).ready ->
 
   if gon.overview?
     $('.datepicker').datepicker({
-        format: "dd.mm.yyyy",
-        weekStart: 1,
-        language: "de",
-        todayHighlight: true
+        format: "dd.mm.yyyy"
+        weekStart: 1
+        language: "de"
+        todayHighlight: false
+        multidate: false # fürs Erste
+        todayBtn: (dateFormat(new Date()) in gon.availabe_days)
+        startDate: new Date(gon.startDate)
+        endDate: new Date(gon.endDate)
+
+        beforeShowDay: (date) -> 
+          # Must be "YYYY-MM-DD" for comparison with array values
+          if (dateFormat(date) == gon.selectedDate)
+            "selectedDate"
+          else if (dateFormat(date) in gon.availabe_days)
+            "dataAvailabe" 
+          else 
+            false
     });
 
     $('#dp').on('changeDate', (e) -> dateChanged(e.date.getUTCFullYear(), e.date.getUTCMonth() + 1, e.date.getUTCDate()));
@@ -59,3 +72,7 @@ get_json = (url) ->
 
 dateChanged = (year, month, day) ->
   window.location.href = '/overview/' + year + '/' + month + '/' + day
+
+
+dateFormat = (date) ->
+  date.getUTCFullYear() + '-' + ('0' + (date.getUTCMonth() + 1)).slice(-2) + '-' + ('0' + date.getUTCDate()).slice(-2)
