@@ -45,7 +45,7 @@ $(document).ready ->
             false
     });
 
-    $('#dp').on('changeDate', (e) -> dateChanged(e.date.getUTCFullYear(), e.date.getUTCMonth() + 1, e.date.getUTCDate()));
+    $('#dp').on('changeDate', (e) -> dateChanged(e.date));
 
     if gon.first_coord?
       map.setView([gon.first_coord.latitude, gon.first_coord.longitude], 15);
@@ -70,7 +70,10 @@ get_json = (url) ->
   $.getJSON "#{url}.json"
 
 
-dateChanged = (year, month, day) ->
+dateChanged = (date) ->
+  year = date.getUTCFullYear()
+  month = date.getUTCMonth() + 1 #0-11 to 1-12
+  day = date.getUTCDate()
   window.location.href = '/overview/' + year + '/' + month + '/' + day
 
 
