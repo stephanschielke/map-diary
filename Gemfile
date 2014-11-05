@@ -30,7 +30,8 @@ gem 'nokogiri'
 gem 'gon' 
 # Used to find the timezone by lon,lat coord without a webserivce call
 gem 'nearest_time_zone'
-# Calendar
+
+# Calendar Plugin
 gem 'bootstrap-datepicker-rails'
 
 group :development do
